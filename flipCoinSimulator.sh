@@ -65,7 +65,7 @@ function percentage()
 
 }
 
-#Function For The Start Game
+#Function For The mainFunction
 
 function mainFunction()
 {
