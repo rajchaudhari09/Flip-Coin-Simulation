@@ -4,26 +4,36 @@ echo "-------------------------------------------------------------"
 echo "-------------Welcome To Flip Coin Simulator------------------"
 echo "-------------------------------------------------------------"
 #Declaire Variable
-H=0
-T=0
-
-#User From The Input
-read -p "enter  how many times to flip coin: "
+declare -A coinSideDict
+Hd=0
+Tl=0
 
 #Function For flip
 function flip()
 {
-         flipResult=$((RANDOM%2))
-            if [[ $flipResult -eq 0 ]]
+	read -p "Enter How Many Times You want To FlipCoin : " flips
+
+		for((index=0;index<flips;index++))
+		do
+            if [[ $((RANDOM % 2)) -eq 1 ]]
             then
-                  echo "Head"
+                  coinSideDict["result"$index]="Head"
+						((Hd++))
             else
-                  echo "Tail"
+                  
+                  coinSideDict["result"$index]="Tail"
+						((Tl++))
             fi
+		done
+
+echo "Heads Percentage: $(echo "scale=2; $Hd * 100 / $flips" | bc )"
+echo "Tails Percentage: $(echo "scale=2; $Tl * 100 / $flips" | bc )"
 }
 
 #Calling The flip Function
 flip
+#Print The HEADS And TAILS 
+echo  "All Occurrence: "${coinSideDict[@]}
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
