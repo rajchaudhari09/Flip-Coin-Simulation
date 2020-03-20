@@ -56,8 +56,14 @@ declare -A coinSideDict
 
 	done
 
-	echo  "All Number Of Key Percentage: "${coinSideDict[@]}
+	echo  "Maximum Times Number Of Key Percentage: "${coinSideDict[@]}
 
+	#Sorting The Singlet,Doublet,Triplet And Show Winning Combination 
+	echo "Winning Key and Maximum Times Number of Key Percentage"
+	for start in ${!coinSideDict[@]}
+	do
+		echo -e "$start = ${coinSideDict[$start]}"
+	done | sort -k3 -rn | head -n 1
 }
 
 #Function For The mainFunction
@@ -92,11 +98,8 @@ function mainFunction()
 	done
 
 }
-
 #Calling The mainFunctions
-
 mainFunction
-
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
 echo "-------------------------------------------------------------"
