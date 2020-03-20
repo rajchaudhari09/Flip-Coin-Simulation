@@ -19,15 +19,18 @@ coins=$2
 
 declare -A coinSideDict
 
+	#Outer Loop For Number Of Flips
 	for((indexOne=1;indexOne<=$flips;indexOne++))
 	do
 
+		#Inner Loop For Number Of Coins
 		for((indexTwo=1;indexTwo<=$coins;indexTwo++))
 		do
 
 		    if(( $((RANDOM%2==0)) ))
           then
 
+						#Append Value In Key
                   key+=H
 	       else
 
@@ -35,32 +38,24 @@ declare -A coinSideDict
           fi
 
 		done
+
+		#Storing Value In Key And Increment Occurrence
 		coinSideDict[$key]=$((${coinSideDict[$key]}+1))
+		#Making Key Blank For Next Iteration
 		key=""
 
 	done
-
 	echo  "All Key: " ${!coinSideDict[@]}
 	echo  "All Number Of Key: " ${coinSideDict[@]}
 
-#Calling The Percentage Function
-
-percentage
-
-}
-
-#Fuction For Calculate The Percentage  
-
-function percentage()
-{
+	#Calculate The Percentage
 	for key in ${!coinSideDict[@]}
 	do
 
-		coinSideDict[$key]=$((${coinSideDict[$key]} * 100 / $flips))
+		coinSideDict[$key]=$(echo "scale=2;${coinSideDict[$key]} * 100 / $flips" | bc )
 
 	done
 
-	echo  "All Key: "${!coinSideDict[@]}
 	echo  "All Number Of Key Percentage: "${coinSideDict[@]}
 
 }
@@ -70,7 +65,7 @@ function percentage()
 function mainFunction()
 {
 	local flips=0
-	read -p "Entered Y To Play Otherwise Any Keys For Quite: " play
+	read -p "Do You Want To play [ Y | N ]: " play
 
 	while [ "$play" == 'y' ]
 	do
@@ -92,7 +87,7 @@ function mainFunction()
 						echo "Invalid Option"
 						;;
 		esac
-		read -p "Entered y To Play Otherwise Any Keys For Quite: " play
+		read -p "Do You Want To Continue [ Y | N ]: " play
 
 	done
 
